@@ -1,78 +1,200 @@
-document.addEventListener("DOMContentLoaded", displayResidents);
-
-function getResidents() {
-    return JSON.parse(localStorage.getItem("residents")) || [];
+// ================= USERS =================
+function getUsers(){
+    return JSON.parse(localStorage.getItem("users")) || [];
 }
 
-function saveResidents(residents) {
-    localStorage.setItem("residents", JSON.stringify(residents));
+function saveUsers(users){
+    localStorage.setItem("users", JSON.stringify(users));
 }
 
-function addResident() {
-    const name = document.getElementById("name").value;
-    const age = document.getElementById("age").value;
-    const address = document.getElementById("address").value;
+function signup(){
+    const u = signupUser.value;
+    const p = signupPass.value;
 
-    if (name === "" || age === "" || address === "") {
-        alert("Please fill all fields!");
+    if(u === "" || p === ""){
+        alert("Fill all fields!");
         return;
     }
 
-    const residents = getResidents();
-    residents.push({ name, age, address });
-    saveResidents(residents);
+    const users = getUsers();
+    users.push({username:u, password:p});
+    saveUsers(users);
 
-    document.getElementById("name").value = "";
-    document.getElementById("age").value = "";
-    document.getElementById("address").value = "";
-
-    displayResidents();
+    alert("Registered Successfully!");
+    signupUser.value="";
+    signupPass.value="";
 }
 
-function displayResidents() {
-    const residents = getResidents();
-    const table = document.getElementById("residentTable");
-    table.innerHTML = "";
+function login(){
+    const u = loginUser.value;
+    const p = loginPass.value;
 
-    residents.forEach((resident, index) => {
-        table.innerHTML += `
-            <tr>
-                <td>${resident.name}</td>
-                <td>${resident.age}</td>
-                <td>${resident.address}</td>
-                <td>
-                    <button class="delete-btn" onclick="deleteResident(${index})">Delete</button>
-                </td>
-            </tr>
-        `;
+    if(u==="admin" && p==="admin123"){
+        loginSection.classList.add("hidden");
+        adminSection.classList.remove("hidden");
+        displayTracker();
+        displayAdminForum();
+        return;
+    }
+
+    const users = getUsers();
+    const found = users.find(x=>x.username===u && x.password===p);
+
+    if(found){
+        localStorage.setItem("currentUser", u);
+        loginSection.classList.add("hidden");
+        residentSection.classList.remove("hidden");
+        displayAnnouncements();
+        displayForum();
+    } else {
+        alert("Invalid Login");
+    }
+}
+
+function logout(){
+    location.reload();
+}
+
+function toggleSignup(){
+    signupBox.classList.toggle("hidden");
+}
+
+// ================= ANNOUNCEMENTS =================
+function getAnnouncements(){
+    return JSON.parse(localStorage.getItem("announcements")) || [];
+}
+
+function addAnnouncement(){
+    const list = getAnnouncements();
+
+    list.push({
+        title: annTitle.value,
+        date: annDate.value,
+        schedule: annSched.value
+    });
+
+    localStorage.setItem("announcements", JSON.stringify(list));
+    alert("Announcement Posted!");
+}
+
+function displayAnnouncements(){
+    const list = getAnnouncements();
+    announcementList.innerHTML="";
+
+    list.forEach(a=>{
+        announcementList.innerHTML+=`
+            <div class="card">
+                <strong>${a.title}</strong>
+                <p>Date: ${a.date}</p>
+                <p>Schedule: ${a.schedule}</p>
+            </div>`;
     });
 }
 
-function deleteResident(index) {
-    const residents = getResidents();
-    residents.splice(index, 1);
-    saveResidents(residents);
-    displayResidents();
+// ================= CLEARANCE =================
+function generateClearance(){
+    const text = `
+BARANGAY CLEARANCE
+
+This certifies that ${clearName.value}
+is a resident of this Barangay.
+
+Purpose: ${clearPurpose.value}
+
+Date Issued: ${new Date().toLocaleDateString()}
+    `;
+
+    clearOutput.innerText=text;
+
+    const blob=new Blob([text],{type:"text/plain"});
+    const link=document.createElement("a");
+    link.href=URL.createObjectURL(blob);
+    link.download="clearance.txt";
+    link.click();
 }
 
-function searchResident() {
-    const input = document.getElementById("search").value.toLowerCase();
-    const residents = getResidents();
-    const filtered = residents.filter(r => r.name.toLowerCase().includes(input));
+function printClearance(){
+    window.print();
+}
 
-    const table = document.getElementById("residentTable");
-    table.innerHTML = "";
+// ================= FORUM =================
+function getForum(){
+    return JSON.parse(localStorage.getItem("forum")) || [];
+}
 
-    filtered.forEach((resident, index) => {
-        table.innerHTML += `
-            <tr>
-                <td>${resident.name}</td>
-                <td>${resident.age}</td>
-                <td>${resident.address}</td>
-                <td>
-                    <button class="delete-btn" onclick="deleteResident(${index})">Delete</button>
-                </td>
-            </tr>
-        `;
+function addForum(){
+    const forum=getForum();
+
+    forum.push({
+        user:localStorage.getItem("currentUser"),
+        text:forumText.value,
+        approved:false,
+        reply:""
+    });
+
+    localStorage.setItem("forum",JSON.stringify(forum));
+    alert("Submitted for approval");
+}
+
+function displayForum(){
+    const forum=getForum();
+    forumList.innerHTML="";
+
+    forum.filter(f=>f.approved).forEach(f=>{
+        forumList.innerHTML+=`
+            <div class="card">
+                <strong>${f.user}</strong>
+                <p>${f.text}</p>
+                <small style="color:green;">${f.reply}</small>
+            </div>`;
+    });
+}
+
+// ================= ADMIN FORUM =================
+function displayAdminForum(){
+    const forum=getForum();
+    adminForum.innerHTML="";
+
+    forum.forEach((f,index)=>{
+        adminForum.innerHTML+=`
+            <div class="card">
+                <strong>${f.user}</strong>
+                <p>${f.text}</p>
+                <button onclick="approve(${index})">Approve</button>
+                <button class="btn-danger" onclick="removePost(${index})">Delete</button>
+                <input type="text" id="reply${index}" placeholder="Reply">
+                <button onclick="replyPost(${index})">Reply</button>
+            </div>`;
+    });
+}
+
+function approve(index){
+    const forum=getForum();
+    forum[index].approved=true;
+    localStorage.setItem("forum",JSON.stringify(forum));
+    displayAdminForum();
+}
+
+function removePost(index){
+    const forum=getForum();
+    forum.splice(index,1);
+    localStorage.setItem("forum",JSON.stringify(forum));
+    displayAdminForum();
+}
+
+function replyPost(index){
+    const forum=getForum();
+    const replyText=document.getElementById("reply"+index).value;
+    forum[index].reply=replyText;
+    localStorage.setItem("forum",JSON.stringify(forum));
+    displayAdminForum();
+}
+
+// ================= TRACKER =================
+function displayTracker(){
+    const users=getUsers();
+    tracker.innerHTML="";
+    users.forEach(u=>{
+        tracker.innerHTML+=`<p>${u.username}</p>`;
     });
 }
