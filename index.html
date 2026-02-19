@@ -1,86 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Barangay Management System</title>
+    <title>Barangay Resident Portal</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
-    <h2>Barangay Management System</h2>
+    <div class="header-content">
+        <h1>Barangay Resident Portal</h1>
+        <p>Community Services and Information System</p>
+    </div>
 </header>
 
-<div class="container">
+<div class="main-container">
 
-<!-- ================= LOGIN SECTION ================= -->
-<div id="loginSection" class="card">
-    <h3>Login</h3>
-    <input type="text" id="loginUser" placeholder="Username">
-    <input type="password" id="loginPass" placeholder="Password">
-    <button class="btn" onclick="login()">Login</button>
-    <p onclick="toggleSignup()" class="link">No account? Sign Up</p>
+    <!-- LOGIN SECTION -->
+    <div id="loginSection" class="auth-card">
+        <h2>Welcome Resident</h2>
+        <input type="text" id="loginUser" placeholder="Username">
+        <input type="password" id="loginPass" placeholder="Password">
+        <button class="primary-btn" onclick="login()">Login</button>
+        <p class="link" onclick="toggleSignup()">No account? Register here</p>
 
-    <div id="signupBox" class="hidden">
-        <h3>Sign Up</h3>
-        <input type="text" id="signupUser" placeholder="Username">
-        <input type="password" id="signupPass" placeholder="Password">
-        <button class="btn" onclick="signup()">Register</button>
-    </div>
-</div>
-
-<!-- ================= RESIDENT DASHBOARD ================= -->
-<div id="residentSection" class="hidden">
-
-    <button onclick="logout()" class="logout-btn">Logout</button>
-
-    <div class="card">
-        <h3>Announcements</h3>
-        <div id="announcementList"></div>
+        <div id="signupBox" class="hidden">
+            <h3>Create Account</h3>
+            <input type="text" id="signupUser" placeholder="Username">
+            <input type="password" id="signupPass" placeholder="Password">
+            <button class="primary-btn" onclick="signup()">Register</button>
+        </div>
     </div>
 
-    <div class="card">
-        <h3>Barangay Clearance</h3>
-        <input type="text" id="clearName" placeholder="Full Name">
-        <input type="text" id="clearPurpose" placeholder="Purpose">
-        <button class="btn" onclick="generateClearance()">Download</button>
-        <button onclick="printClearance()">Print</button>
-        <pre id="clearOutput"></pre>
+    <!-- DASHBOARD -->
+    <div id="residentSection" class="hidden">
+
+        <div class="dashboard-header">
+            <h2>Resident Dashboard</h2>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <div class="grid">
+
+            <!-- Announcements -->
+            <div class="card">
+                <h3>📢 Announcements</h3>
+                <div id="announcementList"></div>
+            </div>
+
+            <!-- Clearance -->
+            <div class="card">
+                <h3>📄 Barangay Clearance</h3>
+                <input type="text" id="clearName" placeholder="Full Name">
+                <input type="text" id="clearPurpose" placeholder="Purpose">
+                <button class="primary-btn" onclick="generateClearance()">Download</button>
+                <button class="secondary-btn" onclick="printClearance()">Print</button>
+                <pre id="clearOutput"></pre>
+            </div>
+
+            <!-- Forum -->
+            <div class="card full-width">
+                <h3>💬 Community Forum</h3>
+                <textarea id="forumText" placeholder="Write your suggestion or concern..."></textarea>
+                <button class="primary-btn" onclick="addForum()">Post</button>
+                <div id="forumList"></div>
+            </div>
+
+        </div>
     </div>
-
-    <div class="card">
-        <h3>Community Forum</h3>
-        <textarea id="forumText" placeholder="Suggestion / Complaint"></textarea>
-        <button class="btn" onclick="addForum()">Post</button>
-        <div id="forumList"></div>
-    </div>
-
-</div>
-
-<!-- ================= ADMIN PANEL ================= -->
-<div id="adminSection" class="hidden">
-
-    <button onclick="logout()" class="logout-btn">Logout</button>
-
-    <div class="card">
-        <h3>Resident Tracker</h3>
-        <div id="tracker"></div>
-    </div>
-
-    <div class="card">
-        <h3>Create Announcement</h3>
-        <input type="text" id="annTitle" placeholder="Title">
-        <input type="date" id="annDate">
-        <input type="text" id="annSched" placeholder="Schedule">
-        <button class="btn" onclick="addAnnouncement()">Post</button>
-    </div>
-
-    <div class="card">
-        <h3>Forum Management</h3>
-        <div id="adminForum"></div>
-    </div>
-
-</div>
 
 </div>
 
