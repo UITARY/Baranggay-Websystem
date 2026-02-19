@@ -1,4 +1,4 @@
-// ================= USERS =================
+// USERS
 function getUsers(){
     return JSON.parse(localStorage.getItem("users")) || [];
 }
@@ -29,14 +29,6 @@ function login(){
     const u = loginUser.value;
     const p = loginPass.value;
 
-    if(u==="admin" && p==="admin123"){
-        loginSection.classList.add("hidden");
-        adminSection.classList.remove("hidden");
-        displayTracker();
-        displayAdminForum();
-        return;
-    }
-
     const users = getUsers();
     const found = users.find(x=>x.username===u && x.password===p);
 
@@ -59,22 +51,16 @@ function toggleSignup(){
     signupBox.classList.toggle("hidden");
 }
 
-// ================= ANNOUNCEMENTS =================
-function getAnnouncements(){
-    return JSON.parse(localStorage.getItem("announcements")) || [];
+// ANNOUNCEMENTS
+if(!localStorage.getItem("announcements")){
+    localStorage.setItem("announcements", JSON.stringify([
+        {title:"Clean-Up Drive", date:"2026-02-25", schedule:"8:00 AM"},
+        {title:"Community Meeting", date:"2026-03-01", schedule:"6:00 PM"}
+    ]));
 }
 
-function addAnnouncement(){
-    const list = getAnnouncements();
-
-    list.push({
-        title: annTitle.value,
-        date: annDate.value,
-        schedule: annSched.value
-    });
-
-    localStorage.setItem("announcements", JSON.stringify(list));
-    alert("Announcement Posted!");
+function getAnnouncements(){
+    return JSON.parse(localStorage.getItem("announcements"));
 }
 
 function displayAnnouncements(){
@@ -83,15 +69,15 @@ function displayAnnouncements(){
 
     list.forEach(a=>{
         announcementList.innerHTML+=`
-            <div class="card">
-                <strong>${a.title}</strong>
-                <p>Date: ${a.date}</p>
-                <p>Schedule: ${a.schedule}</p>
+            <div class="announcement-item">
+                <strong>${a.title}</strong><br>
+                Date: ${a.date}<br>
+                Schedule: ${a.schedule}
             </div>`;
     });
 }
 
-// ================= CLEARANCE =================
+// CLEARANCE
 function generateClearance(){
     const text = `
 BARANGAY CLEARANCE
@@ -117,7 +103,7 @@ function printClearance(){
     window.print();
 }
 
-// ================= FORUM =================
+// FORUM
 function getForum(){
     return JSON.parse(localStorage.getItem("forum")) || [];
 }
@@ -127,74 +113,23 @@ function addForum(){
 
     forum.push({
         user:localStorage.getItem("currentUser"),
-        text:forumText.value,
-        approved:false,
-        reply:""
+        text:forumText.value
     });
 
     localStorage.setItem("forum",JSON.stringify(forum));
-    alert("Submitted for approval");
+    forumText.value="";
+    displayForum();
 }
 
 function displayForum(){
     const forum=getForum();
     forumList.innerHTML="";
 
-    forum.filter(f=>f.approved).forEach(f=>{
+    forum.forEach(f=>{
         forumList.innerHTML+=`
-            <div class="card">
-                <strong>${f.user}</strong>
-                <p>${f.text}</p>
-                <small style="color:green;">${f.reply}</small>
+            <div class="forum-item">
+                <strong>${f.user}</strong><br>
+                ${f.text}
             </div>`;
-    });
-}
-
-// ================= ADMIN FORUM =================
-function displayAdminForum(){
-    const forum=getForum();
-    adminForum.innerHTML="";
-
-    forum.forEach((f,index)=>{
-        adminForum.innerHTML+=`
-            <div class="card">
-                <strong>${f.user}</strong>
-                <p>${f.text}</p>
-                <button onclick="approve(${index})">Approve</button>
-                <button class="btn-danger" onclick="removePost(${index})">Delete</button>
-                <input type="text" id="reply${index}" placeholder="Reply">
-                <button onclick="replyPost(${index})">Reply</button>
-            </div>`;
-    });
-}
-
-function approve(index){
-    const forum=getForum();
-    forum[index].approved=true;
-    localStorage.setItem("forum",JSON.stringify(forum));
-    displayAdminForum();
-}
-
-function removePost(index){
-    const forum=getForum();
-    forum.splice(index,1);
-    localStorage.setItem("forum",JSON.stringify(forum));
-    displayAdminForum();
-}
-
-function replyPost(index){
-    const forum=getForum();
-    const replyText=document.getElementById("reply"+index).value;
-    forum[index].reply=replyText;
-    localStorage.setItem("forum",JSON.stringify(forum));
-    displayAdminForum();
-}
-
-// ================= TRACKER =================
-function displayTracker(){
-    const users=getUsers();
-    tracker.innerHTML="";
-    users.forEach(u=>{
-        tracker.innerHTML+=`<p>${u.username}</p>`;
     });
 }
