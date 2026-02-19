@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Barangay Resident Portal</title>
     <meta charset="UTF-8">
+    <title>Barangay Resident Portal</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="Photos/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -49,11 +50,6 @@
                 <div id="announcementList"></div>
             </div>
 
-            <!-- Clearance -->
-            <div class="card">
-                <h3>📄 Barangay Clearance</h3>
-            </div>
-
             <!-- Forum -->
             <div class="card full-width">
                 <h3>💬 Community Forum</h3>
@@ -62,18 +58,25 @@
                 <div id="forumList"></div>
             </div>
 
-        </div>
-                        <!-- Clearance -->
-            <div class="card" class="hidden">
+            <!-- Button to go to Fill-up Form -->
+            <div class="card">
                 <h3>📄 Barangay Clearance</h3>
-                <input type="text" id="clearName" placeholder="Full Name">
-                <input type="text" id="clearPurpose" placeholder="Purpose">
-                <button class="primary-btn" onclick="generateClearance()">Download</button>
-                <button class="secondary-btn" onclick="printClearance()">Print</button>
-                <pre id="clearOutput"></pre>
+                <button class="primary-btn" onclick="showClearanceForm()">Fill-up Form</button>
             </div>
+
+        </div>
     </div>
 
+    <!-- CLEARANCE FORM -->
+    <div id="clearanceSection" class="auth-card hidden">
+        <h2>Barangay Clearance Form</h2>
+        <input type="text" id="clearName" placeholder="Full Name">
+        <input type="text" id="clearPurpose" placeholder="Purpose">
+        <button class="primary-btn" onclick="generateClearance()">Download</button>
+        <button class="secondary-btn" onclick="printClearance()">Print</button>
+        <pre id="clearOutput"></pre>
+        <button class="secondary-btn" onclick="backToDashboard()">Back to Dashboard</button>
+    </div>
 
 </div>
 
@@ -84,15 +87,3 @@
 <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
