@@ -133,3 +133,16 @@ function displayForum(){
             </div>`;
     });
 }
+
+// Show Clearance Form
+function showClearanceForm() {
+    residentSection.classList.add("hidden");
+    clearanceSection.classList.remove("hidden");
+}
+
+// Go back to Dashboard
+function backToDashboard() {
+    clearanceSection.classList.add("hidden");
+    residentSection.classList.remove("hidden");
+}
+
