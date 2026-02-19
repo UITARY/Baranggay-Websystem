@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Barangay Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Barangay Management System</h1>
+    </header>
+
+    <div class="container">
+        
+        <div class="form-section">
+            <h2>Add Resident</h2>
+            <input type="text" id="name" placeholder="Full Name">
+            <input type="number" id="age" placeholder="Age">
+            <input type="text" id="address" placeholder="Address">
+            <button onclick="addResident()">Add Resident</button>
+        </div>
+
+        <div class="list-section">
+            <h2>Resident List</h2>
+            <input type="text" id="search" placeholder="Search Resident" onkeyup="searchResident()">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Address</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="residentTable"></tbody>
+            </table>
+        </div>
+
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>
