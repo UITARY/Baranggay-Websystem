@@ -159,3 +159,35 @@ textarea {
     margin-top: 10px;
     border-left: 4px solid #4caf50;
 }
+
+/* GENERAL RESPONSIVE */
+@media screen and (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr; /* stack cards vertically */
+    }
+
+    header {
+        padding: 20px 10px;
+    }
+
+    input, textarea {
+        font-size: 16px;
+    }
+
+    .primary-btn, .secondary-btn, .logout-btn {
+        width: 100%;
+        margin: 8px 0;
+    }
+
+    .auth-card, .card {
+        padding: 20px;
+        margin: 15px 0;
+    }
+
+    .dashboard-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
