@@ -1,45 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Barangay Management System</title>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <h1>Barangay Management System</h1>
-    </header>
+<header>
+    <h2>Barangay Management System</h2>
+</header>
 
-    <div class="container">
-        
-        <div class="form-section">
-            <h2>Add Resident</h2>
-            <input type="text" id="name" placeholder="Full Name">
-            <input type="number" id="age" placeholder="Age">
-            <input type="text" id="address" placeholder="Address">
-            <button onclick="addResident()">Add Resident</button>
-        </div>
+<div class="container">
 
-        <div class="list-section">
-            <h2>Resident List</h2>
-            <input type="text" id="search" placeholder="Search Resident" onkeyup="searchResident()">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Address</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="residentTable"></tbody>
-            </table>
-        </div>
+<!-- ================= LOGIN SECTION ================= -->
+<div id="loginSection" class="card">
+    <h3>Login</h3>
+    <input type="text" id="loginUser" placeholder="Username">
+    <input type="password" id="loginPass" placeholder="Password">
+    <button class="btn" onclick="login()">Login</button>
+    <p onclick="toggleSignup()" class="link">No account? Sign Up</p>
 
+    <div id="signupBox" class="hidden">
+        <h3>Sign Up</h3>
+        <input type="text" id="signupUser" placeholder="Username">
+        <input type="password" id="signupPass" placeholder="Password">
+        <button class="btn" onclick="signup()">Register</button>
     </div>
+</div>
+
+<!-- ================= RESIDENT DASHBOARD ================= -->
+<div id="residentSection" class="hidden">
+
+    <button onclick="logout()" class="logout-btn">Logout</button>
+
+    <div class="card">
+        <h3>Announcements</h3>
+        <div id="announcementList"></div>
+    </div>
+
+    <div class="card">
+        <h3>Barangay Clearance</h3>
+        <input type="text" id="clearName" placeholder="Full Name">
+        <input type="text" id="clearPurpose" placeholder="Purpose">
+        <button class="btn" onclick="generateClearance()">Download</button>
+        <button onclick="printClearance()">Print</button>
+        <pre id="clearOutput"></pre>
+    </div>
+
+    <div class="card">
+        <h3>Community Forum</h3>
+        <textarea id="forumText" placeholder="Suggestion / Complaint"></textarea>
+        <button class="btn" onclick="addForum()">Post</button>
+        <div id="forumList"></div>
+    </div>
+
+</div>
+
+<!-- ================= ADMIN PANEL ================= -->
+<div id="adminSection" class="hidden">
+
+    <button onclick="logout()" class="logout-btn">Logout</button>
+
+    <div class="card">
+        <h3>Resident Tracker</h3>
+        <div id="tracker"></div>
+    </div>
+
+    <div class="card">
+        <h3>Create Announcement</h3>
+        <input type="text" id="annTitle" placeholder="Title">
+        <input type="date" id="annDate">
+        <input type="text" id="annSched" placeholder="Schedule">
+        <button class="btn" onclick="addAnnouncement()">Post</button>
+    </div>
+
+    <div class="card">
+        <h3>Forum Management</h3>
+        <div id="adminForum"></div>
+    </div>
+
+</div>
+
+</div>
 
 <script src="script.js"></script>
 </body>
-
 </html>
