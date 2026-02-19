@@ -1,66 +1,161 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial;
+    font-family: 'Segoe UI', sans-serif;
     margin: 0;
-    background: #f4f6f9;
+    background: linear-gradient(to right, #e3f2fd, #f4f6f9);
 }
 
+/* HEADER */
 header {
-    background: #2c3e50;
+    background: #1a237e;
     color: white;
-    padding: 15px;
+    padding: 25px 0;
     text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
-.container {
-    width: 90%;
-    margin: 20px auto;
+.header-content h1 {
+    margin: 0;
 }
 
-.card {
+.header-content p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* MAIN CONTAINER */
+.main-container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 30px auto;
+}
+
+/* LOGIN CARD */
+.auth-card {
     background: white;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 30px;
+    max-width: 400px;
+    margin: auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
 input, textarea {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
 }
 
 textarea {
-    height: 80px;
+    height: 100px;
+    resize: none;
 }
 
-button {
+/* BUTTONS */
+.primary-btn {
+    background: #1565c0;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 5px;
+    transition: 0.3s;
+}
+
+.primary-btn:hover {
+    background: #0d47a1;
+}
+
+.secondary-btn {
+    background: #90a4ae;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.secondary-btn:hover {
+    background: #607d8b;
+}
+
+.logout-btn {
+    background: #c62828;
+    color: white;
     padding: 8px 15px;
+    border-radius: 8px;
     border: none;
     cursor: pointer;
 }
 
-.btn {
-    background: #27ae60;
-    color: white;
+.logout-btn:hover {
+    background: #b71c1c;
 }
 
-.btn-danger {
-    background: red;
-    color: white;
+/* DASHBOARD */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
-.logout-btn {
-    background: #34495e;
-    color: white;
-    margin-bottom: 15px;
+/* GRID LAYOUT */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+/* CARD */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+    margin-top: 0;
 }
 
 .link {
-    color: blue;
+    color: #1565c0;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .hidden {
     display: none;
+}
+
+/* ANNOUNCEMENT ITEM */
+.announcement-item {
+    background: #f1f8ff;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border-left: 4px solid #1565c0;
+}
+
+/* FORUM ITEM */
+.forum-item {
+    background: #fafafa;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border-left: 4px solid #4caf50;
 }
