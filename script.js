@@ -48,26 +48,49 @@ window.signup = async function () {
     const email = signupUser.value.trim();
     const password = signupPass.value.trim();
 
-    if (email.length < 5) {
-        alert("Email must be valid.");
+    if (email === "" || password === "") {
+        showNotification("Please fill all fields", "error");
         return;
     }
 
     if (password.length < 6) {
-        alert("Password must be at least 6 characters.");
+        showNotification("Password must be at least 6 characters", "error");
         return;
     }
 
     try {
+        // Create account
         await createUserWithEmailAndPassword(auth, email, password);
-        alert("Account Created Successfully!");
+
+        showNotification("Account Created & Logged In!");
+
+        // Clear fields
         signupUser.value = "";
         signupPass.value = "";
+
+        // Hide signup box
+        signupBox.classList.add("hidden");
+
+        // Dashboard will automatically show because of onAuthStateChanged
+
     } catch (error) {
-        alert(error.message);
+        showNotification(error.message, "error");
     }
 };
 
+// Press Enter to Login
+loginPass.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+        login();
+    }
+});
+
+// Press Enter to Signup
+signupPass.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+        signup();
+    }
+});
 
 
 // =============================
@@ -78,11 +101,21 @@ window.login = async function () {
     const email = loginUser.value.trim();
     const password = loginPass.value.trim();
 
+    if (email === "" || password === "") {
+        showNotification("Please enter email and password", "error");
+        return;
+    }
+
     try {
         await signInWithEmailAndPassword(auth, email, password);
+
         showNotification("Login Successful!");
+
+        loginUser.value = "";
+        loginPass.value = "";
+
     } catch (error) {
-        showNotification("Login Failed: " + error.message, "error");
+        showNotification("Invalid email or password", "error");
     }
 };
 
@@ -237,4 +270,5 @@ function showNotification(message, type = "success") {
         notif.classList.add("hidden");
     }, 3000);
 }
+
 
