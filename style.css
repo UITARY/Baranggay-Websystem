@@ -5,12 +5,12 @@
 body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
-    background: linear-gradient(to right, #e3f2fd, #f4f6f9);
+    background: linear-gradient(to right, #e3f2fd, #fff3e0);
 }
 
 /* HEADER */
 header {
-    background: #1a237e;
+    background: linear-gradient(to right, #0d47a1, #1976d2);
     color: white;
     padding: 25px 0;
     text-align: center;
@@ -24,7 +24,7 @@ header {
 .header-content p {
     margin: 5px 0 0;
     font-size: 14px;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 /* MAIN CONTAINER */
@@ -41,17 +41,24 @@ header {
     max-width: 400px;
     margin: auto;
     border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     text-align: center;
 }
 
+/* INPUTS */
 input, textarea {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 2px solid #1976d2;
     font-size: 14px;
+    transition: 0.3s;
+}
+
+input:focus, textarea:focus {
+    border-color: #fb8c00;
+    outline: none;
 }
 
 textarea {
@@ -61,22 +68,21 @@ textarea {
 
 /* BUTTONS */
 .primary-btn {
-    background: #1565c0;
+    background: linear-gradient(to right, #fb8c00, #ffb74d);
     color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 8px;
     cursor: pointer;
-    margin-right: 5px;
     transition: 0.3s;
 }
 
 .primary-btn:hover {
-    background: #0d47a1;
+    background: linear-gradient(to right, #ef6c00, #fb8c00);
 }
 
 .secondary-btn {
-    background: #90a4ae;
+    background: #1976d2;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -85,11 +91,11 @@ textarea {
 }
 
 .secondary-btn:hover {
-    background: #607d8b;
+    background: #0d47a1;
 }
 
 .logout-btn {
-    background: #c62828;
+    background: #fb8c00;
     color: white;
     padding: 8px 15px;
     border-radius: 8px;
@@ -98,7 +104,7 @@ textarea {
 }
 
 .logout-btn:hover {
-    background: #b71c1c;
+    background: #ef6c00;
 }
 
 /* DASHBOARD */
@@ -109,7 +115,7 @@ textarea {
     margin-bottom: 20px;
 }
 
-/* GRID LAYOUT */
+/* GRID */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -125,45 +131,47 @@ textarea {
     background: white;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
 .card h3 {
     margin-top: 0;
+    color: #0d47a1;
 }
 
 .link {
-    color: #1565c0;
+    color: #fb8c00;
     cursor: pointer;
     font-size: 14px;
+    font-weight: 500;
 }
 
 .hidden {
     display: none;
 }
 
-/* ANNOUNCEMENT ITEM */
+/* ANNOUNCEMENTS */
 .announcement-item {
-    background: #f1f8ff;
+    background: #e3f2fd;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 8px;
-    border-left: 4px solid #1565c0;
+    border-left: 5px solid #1976d2;
 }
 
-/* FORUM ITEM */
+/* FORUM */
 .forum-item {
-    background: #fafafa;
+    background: #fff3e0;
     padding: 10px;
     border-radius: 8px;
     margin-top: 10px;
-    border-left: 4px solid #4caf50;
+    border-left: 5px solid #fb8c00;
 }
 
-/* GENERAL RESPONSIVE */
+/* RESPONSIVE */
 @media screen and (max-width: 768px) {
     .grid {
-        grid-template-columns: 1fr; /* stack cards vertically */
+        grid-template-columns: 1fr;
     }
 
     header {
@@ -196,7 +204,7 @@ textarea {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #2e7d32;
+    background: #1976d2;
     color: white;
     padding: 15px 20px;
     border-radius: 8px;
@@ -207,7 +215,7 @@ textarea {
 }
 
 .notification.error {
-    background: #c62828;
+    background: #fb8c00;
 }
 
 .notification.hidden {
@@ -224,5 +232,3 @@ textarea {
         opacity: 1;
     }
 }
-
-
