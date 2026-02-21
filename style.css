@@ -5,16 +5,16 @@
 body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
-    background: linear-gradient(to right, #e3f2fd, #fff3e0);
+    background: linear-gradient(to right, #fff3e0, #e3f2fd);
 }
 
-/* HEADER */
+/* HEADER (ORANGE PRIMARY) */
 header {
-    background: linear-gradient(to right, #0d47a1, #1976d2);
+    background: linear-gradient(to right, #f57c00, #ff9800);
     color: white;
     padding: 25px 0;
     text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .header-content h1 {
@@ -51,24 +51,19 @@ input, textarea {
     padding: 12px;
     margin: 10px 0;
     border-radius: 8px;
-    border: 2px solid #1976d2;
+    border: 2px solid #1565c0;
     font-size: 14px;
     transition: 0.3s;
 }
 
 input:focus, textarea:focus {
-    border-color: #fb8c00;
+    border-color: #f57c00;
     outline: none;
 }
 
-textarea {
-    height: 100px;
-    resize: none;
-}
-
-/* BUTTONS */
+/* PRIMARY BUTTON (ORANGE) */
 .primary-btn {
-    background: linear-gradient(to right, #fb8c00, #ffb74d);
+    background: linear-gradient(to right, #f57c00, #ff9800);
     color: white;
     border: none;
     padding: 10px 15px;
@@ -78,11 +73,12 @@ textarea {
 }
 
 .primary-btn:hover {
-    background: linear-gradient(to right, #ef6c00, #fb8c00);
+    background: linear-gradient(to right, #e65100, #f57c00);
 }
 
+/* SECONDARY BUTTON (BLUE) */
 .secondary-btn {
-    background: #1976d2;
+    background: #1565c0;
     color: white;
     border: none;
     padding: 10px 15px;
@@ -94,8 +90,9 @@ textarea {
     background: #0d47a1;
 }
 
+/* LOGOUT BUTTON (BLUE ACCENT) */
 .logout-btn {
-    background: #fb8c00;
+    background: #1565c0;
     color: white;
     padding: 8px 15px;
     border-radius: 8px;
@@ -104,7 +101,7 @@ textarea {
 }
 
 .logout-btn:hover {
-    background: #ef6c00;
+    background: #0d47a1;
 }
 
 /* DASHBOARD */
@@ -132,15 +129,16 @@ textarea {
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    border-top: 5px solid #f57c00;
 }
 
 .card h3 {
     margin-top: 0;
-    color: #0d47a1;
+    color: #e65100;
 }
 
 .link {
-    color: #fb8c00;
+    color: #1565c0;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
@@ -152,20 +150,20 @@ textarea {
 
 /* ANNOUNCEMENTS */
 .announcement-item {
-    background: #e3f2fd;
+    background: #fff3e0;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 8px;
-    border-left: 5px solid #1976d2;
+    border-left: 5px solid #f57c00;
 }
 
 /* FORUM */
 .forum-item {
-    background: #fff3e0;
+    background: #e3f2fd;
     padding: 10px;
     border-radius: 8px;
     margin-top: 10px;
-    border-left: 5px solid #fb8c00;
+    border-left: 5px solid #1565c0;
 }
 
 /* RESPONSIVE */
@@ -204,7 +202,7 @@ textarea {
     position: fixed;
     top: 20px;
     right: 20px;
-    background: #1976d2;
+    background: #f57c00;
     color: white;
     padding: 15px 20px;
     border-radius: 8px;
@@ -215,7 +213,7 @@ textarea {
 }
 
 .notification.error {
-    background: #fb8c00;
+    background: #1565c0;
 }
 
 .notification.hidden {
