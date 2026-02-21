@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Barangay Resident Portal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="Photos/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -18,19 +18,19 @@
 
 <div class="main-container">
 
-    <!-- LOGIN SECTION -->
+    <!-- LOGIN / SIGNUP -->
     <div id="loginSection" class="auth-card">
         <h2>Welcome Resident</h2>
-        <input type="text" id="loginUser" placeholder="Email">
+        <input type="email" id="loginUser" placeholder="Email">
         <input type="password" id="loginPass" placeholder="Password">
-        <button class="primary-btn" id="loginBtn">Login</button>
+        <button class="primary-btn" onclick="login()">Login</button>
         <p class="link" onclick="toggleSignup()">No account? Register here</p>
 
         <div id="signupBox" class="hidden">
             <h3>Create Account</h3>
-            <input type="text" id="signupUser" placeholder="Email">
+            <input type="email" id="signupUser" placeholder="Email">
             <input type="password" id="signupPass" placeholder="Password">
-            <button class="primary-btn" id="signupBtn">Register</button>
+            <button class="primary-btn" onclick="signup()">Register</button>
         </div>
     </div>
 
@@ -69,15 +69,13 @@
         </div>
 
         <div class="grid">
-            <!-- Users -->
             <div class="card full-width">
                 <h3>👥 Residents</h3>
                 <div id="adminUserList"></div>
             </div>
 
-            <!-- Announcements -->
             <div class="card">
-                <h3>📢 Add Announcement</h3>
+                <h3>📢 Manage Announcements</h3>
                 <input type="text" id="adminAnnTitle" placeholder="Title">
                 <input type="date" id="adminAnnDate">
                 <input type="time" id="adminAnnSchedule">
@@ -85,7 +83,6 @@
                 <div id="adminAnnouncementList"></div>
             </div>
 
-            <!-- Forum -->
             <div class="card">
                 <h3>💬 Forum Posts</h3>
                 <div id="adminForumList"></div>
@@ -93,16 +90,14 @@
         </div>
     </div>
 
-    <!-- BARANGAY CLEARANCE FORM -->
+    <!-- CLEARANCE FORM -->
     <div id="clearanceSection" class="paper hidden">
         <div class="paper-header">
             <h2>Republic of the Philippines</h2>
             <h3>Barangay 99</h3>
             <p>City of ________</p>
         </div>
-
         <hr>
-
         <h2 class="paper-title">BARANGAY CLEARANCE</h2>
 
         <div class="form-grid">
@@ -114,8 +109,7 @@
         </div>
 
         <p class="paper-text">
-            This is to certify that the above-named person is a bona fide resident 
-            of this Barangay and has no derogatory record on file as of this date.
+            This certifies that the above-named person is a bona fide resident of this Barangay.
         </p>
 
         <p class="paper-date">
@@ -137,7 +131,6 @@
 
 </div>
 
-<!-- NOTIFICATION -->
 <div id="notification" class="notification hidden"></div>
 
 <script type="module" src="script.js"></script>
