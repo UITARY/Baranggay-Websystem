@@ -68,15 +68,48 @@
     </div>
 
     <!-- CLEARANCE FORM -->
-    <div id="clearanceSection" class="auth-card hidden">
-        <h2>Barangay Clearance Form</h2>
-        <input type="text" id="clearName" placeholder="Full Name">
-        <input type="text" id="clearPurpose" placeholder="Purpose">
-        <button class="primary-btn" onclick="generateClearance()">Download</button>
-        <button class="secondary-btn" onclick="printClearance()">Print</button>
-        <pre id="clearOutput"></pre>
-        <button class="secondary-btn" onclick="backToDashboard()">Back to Dashboard</button>
+<div id="clearanceSection" class="paper hidden">
+
+    <div class="paper-header">
+        <h2>Republic of the Philippines</h2>
+        <h3>Barangay 99</h3>
+        <p>City of ________</p>
     </div>
+
+    <hr>
+
+    <h2 class="paper-title">BARANGAY CLEARANCE</h2>
+
+    <div class="form-grid">
+        <input type="text" id="clearName" placeholder="Full Name">
+        <input type="number" id="clearAge" placeholder="Age">
+        <input type="text" id="clearAddress" placeholder="Complete Address">
+        <input type="text" id="clearCivil" placeholder="Civil Status">
+        <input type="text" id="clearPurpose" placeholder="Purpose of Clearance">
+    </div>
+
+    <p class="paper-text">
+        This is to certify that the above-named person is a bona fide resident 
+        of this Barangay and has no derogatory record on file as of this date.
+    </p>
+
+    <p class="paper-date">
+        Issued this <span id="issueDate"></span>
+    </p>
+
+    <div class="signature-area">
+        <div class="signature-box">
+            ___________________________<br>
+            Barangay Captain
+        </div>
+    </div>
+
+    <div class="paper-buttons">
+        <button class="primary-btn" onclick="printClearance()">Print Clearance</button>
+        <button class="secondary-btn" onclick="backToDashboard()">Back</button>
+    </div>
+
+</div>
 
 </div>
 <script type="module" src="script.js"></script>
@@ -84,5 +117,6 @@
 <div id="notification" class="notification hidden"></div>
 </body>
 </html>
+
 
 
