@@ -37,6 +37,41 @@
     <!-- DASHBOARD -->
     <div id="residentSection" class="hidden">
 
+        <div id="adminSection" class="hidden">
+
+    <div class="dashboard-header">
+        <h2>Admin Dashboard</h2>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="grid">
+
+        <!-- Manage Users -->
+        <div class="card full-width">
+            <h3>👥 Residents</h3>
+            <div id="adminUserList"></div>
+        </div>
+
+        <!-- Manage Announcements -->
+        <div class="card">
+            <h3>📢 Announcements</h3>
+            <input type="text" id="adminAnnTitle" placeholder="Title">
+            <input type="date" id="adminAnnDate">
+            <input type="time" id="adminAnnSchedule">
+            <button class="primary-btn" onclick="addAnnouncementAdmin()">Add</button>
+            <div id="adminAnnouncementList"></div>
+        </div>
+
+        <!-- Manage Forum -->
+        <div class="card">
+            <h3>💬 Forum Posts</h3>
+            <div id="adminForumList"></div>
+        </div>
+
+    </div>
+
+</div>
+
         <div class="dashboard-header">
             <h2>Resident Dashboard</h2>
             <button class="logout-btn" onclick="logout()">Logout</button>
@@ -117,6 +152,7 @@
 <div id="notification" class="notification hidden"></div>
 </body>
 </html>
+
 
 
 
