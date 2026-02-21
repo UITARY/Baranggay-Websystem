@@ -80,9 +80,9 @@ window.login = async function () {
 
     try {
         await signInWithEmailAndPassword(auth, email, password);
-        alert("Login Successful!");
+        showNotification("Login Successful!");
     } catch (error) {
-        alert("Login Failed: " + error.message);
+        showNotification("Login Failed: " + error.message, "error");
     }
 };
 
@@ -107,7 +107,7 @@ onAuthStateChanged(auth, (user) => {
 // =============================
 window.logout = async function () {
     await signOut(auth);
-    alert("Logged out.");
+    showNotification("You have logged out.");
 };
 
 
@@ -237,3 +237,4 @@ function showNotification(message, type = "success") {
         notif.classList.add("hidden");
     }, 3000);
 }
+
