@@ -242,6 +242,8 @@ window.printClearance = function () {
 window.showClearanceForm = function () {
     residentSection.classList.add("hidden");
     clearanceSection.classList.remove("hidden");
+    document.getElementById("issueDate").innerText =
+    new Date().toLocaleDateString();
 };
 
 
@@ -270,5 +272,6 @@ function showNotification(message, type = "success") {
         notif.classList.add("hidden");
     }, 3000);
 }
+
 
 
