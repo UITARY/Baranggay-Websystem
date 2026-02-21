@@ -372,6 +372,57 @@ async function deleteForumPost(id) {
     displayForumAdmin();
 }
 
+import { getFirestore, collection, query, where, getDocs } from "firebase/firestore"; 
 
+const db = getFirestore();
+
+async function login() {
+    const email = loginUser.value;   // your email/username input
+    const password = loginPass.value; // your password input
+
+    // Optional: check password via Firebase Auth
+    // Here, assuming you already registered users and saved passwords in Firestore (for simple testing)
+    
+    const usersRef = collection(db, "users");
+    const q = query(usersRef, where("email", "==", email));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+        const userData = querySnapshot.docs[0].data();
+
+        // Check password (simple demo)
+        if (userData.password !== password) {
+            alert("Incorrect password");
+            return;
+        }
+
+        // Check role
+        if (userData.role === "admin") {
+            showAdminDashboard();   // show admin section
+        } else {
+            showResidentDashboard(); // show resident section
+        }
+
+    } else {
+        alert("User not found");
+    }
+}
+
+function showAdminDashboard() {
+    loginSection.classList.add("hidden");
+    residentSection.classList.add("hidden");
+    adminSection.classList.remove("hidden");
+    displayUsers();
+    displayAnnouncementsAdmin();
+    displayForumAdmin();
+}
+
+function showResidentDashboard() {
+    loginSection.classList.add("hidden");
+    adminSection.classList.add("hidden");
+    residentSection.classList.remove("hidden");
+    displayAnnouncements();
+    displayForum();
+}
 
 
