@@ -230,3 +230,87 @@ input:focus, textarea:focus {
         opacity: 1;
     }
 }
+
+/* PAPER STYLE */
+.paper {
+    background: white;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 40px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    font-family: "Times New Roman", serif;
+}
+
+.paper-header {
+    text-align: center;
+}
+
+.paper-title {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-decoration: underline;
+}
+
+.form-grid input {
+    width: 100%;
+    margin-bottom: 15px;
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+    font-family: inherit;
+}
+
+.paper-text {
+    margin-top: 30px;
+    text-align: justify;
+}
+
+.paper-date {
+    margin-top: 40px;
+}
+
+.signature-area {
+    margin-top: 80px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.signature-box {
+    text-align: center;
+    width: 250px;
+}
+
+.paper-buttons {
+    margin-top: 40px;
+    text-align: center;
+}
+
+/* PRINT STYLE */
+@media print {
+
+    body * {
+        visibility: hidden;
+    }
+
+    .paper, .paper * {
+        visibility: visible;
+    }
+
+    .paper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+        border: none;
+    }
+
+    .paper-buttons {
+        display: none;
+    }
+}
+
+
+
