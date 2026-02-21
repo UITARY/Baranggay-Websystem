@@ -1,74 +1,130 @@
-// USERS
-function getUsers(){
-    return JSON.parse(localStorage.getItem("users")) || [];
-}
+// 🔥 FIREBASE IMPORTS
+import { initializeApp } from 
+"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
-function saveUsers(users){
-    localStorage.setItem("users", JSON.stringify(users));
-}
+import { 
+    getAuth, 
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+} from 
+"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-function signup(){
-    const u = signupUser.value;
-    const p = signupPass.value;
+import { 
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    orderBy,
+    serverTimestamp
+} from 
+"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-    if(u === "" || p === ""){
-        alert("Fill all fields!");
+
+// 🔥 YOUR FIREBASE CONFIG
+const firebaseConfig = {
+  apiKey: "AIzaSyDkMZKejZAT9WsjzbObiAblUmJbP3P3O0k",
+  authDomain: "barangaya-730e6.firebaseapp.com",
+  projectId: "barangaya-730e6",
+  storageBucket: "barangaya-730e6.firebasestorage.app",
+  messagingSenderId: "191169452969",
+  appId: "1:191169452969:web:201a194fb88338f78642b8"
+};
+
+// Initialize
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+
+
+// =============================
+// 🔐 ENHANCED SIGNUP
+// =============================
+window.signup = async function () {
+
+    const email = signupUser.value.trim();
+    const password = signupPass.value.trim();
+
+    if (email.length < 5) {
+        alert("Email must be valid.");
         return;
     }
 
-    const users = getUsers();
-    users.push({username:u, password:p});
-    saveUsers(users);
+    if (password.length < 6) {
+        alert("Password must be at least 6 characters.");
+        return;
+    }
 
-    alert("Registered Successfully!");
-    signupUser.value="";
-    signupPass.value="";
-}
+    try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Account Created Successfully!");
+        signupUser.value = "";
+        signupPass.value = "";
+    } catch (error) {
+        alert(error.message);
+    }
+};
 
-function login(){
-    const u = loginUser.value;
-    const p = loginPass.value;
 
-    const users = getUsers();
-    const found = users.find(x=>x.username===u && x.password===p);
 
-    if(found){
-        localStorage.setItem("currentUser", u);
+// =============================
+// 🔐 ENHANCED LOGIN
+// =============================
+window.login = async function () {
+
+    const email = loginUser.value.trim();
+    const password = loginPass.value.trim();
+
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert("Login Successful!");
+    } catch (error) {
+        alert("Login Failed: " + error.message);
+    }
+};
+
+
+// Auto detect login
+onAuthStateChanged(auth, (user) => {
+    if (user) {
         loginSection.classList.add("hidden");
         residentSection.classList.remove("hidden");
-        displayAnnouncements();
-        displayForum();
+        loadAnnouncements();
+        loadForum();
     } else {
-        alert("Invalid Login");
+        loginSection.classList.remove("hidden");
+        residentSection.classList.add("hidden");
     }
-}
+});
 
-function logout(){
-    location.reload();
-}
 
-function toggleSignup(){
-    signupBox.classList.toggle("hidden");
-}
 
-// ANNOUNCEMENTS
-if(!localStorage.getItem("announcements")){
-    localStorage.setItem("announcements", JSON.stringify([
-        {title:"Clean-Up Drive", date:"2026-02-25", schedule:"8:00 AM"},
-        {title:"Community Meeting", date:"2026-03-01", schedule:"6:00 PM"}
-    ]));
-}
+// =============================
+// 🚪 LOGOUT
+// =============================
+window.logout = async function () {
+    await signOut(auth);
+    alert("Logged out.");
+};
 
-function getAnnouncements(){
-    return JSON.parse(localStorage.getItem("announcements"));
-}
 
-function displayAnnouncements(){
-    const list = getAnnouncements();
-    announcementList.innerHTML="";
 
-    list.forEach(a=>{
-        announcementList.innerHTML+=`
+// =============================
+// 📢 ANNOUNCEMENTS (FIRESTORE)
+// =============================
+async function loadAnnouncements() {
+
+    announcementList.innerHTML = "";
+
+    const q = query(collection(db, "announcements"), orderBy("date", "desc"));
+    const snapshot = await getDocs(q);
+
+    snapshot.forEach(doc => {
+        const a = doc.data();
+        announcementList.innerHTML += `
             <div class="announcement-item">
                 <strong>${a.title}</strong><br>
                 Date: ${a.date}<br>
@@ -77,8 +133,53 @@ function displayAnnouncements(){
     });
 }
 
-// CLEARANCE
-function generateClearance(){
+
+
+// =============================
+// 💬 FORUM (FIRESTORE)
+// =============================
+window.addForum = async function () {
+
+    const text = forumText.value.trim();
+    if (text === "") return;
+
+    const user = auth.currentUser;
+
+    await addDoc(collection(db, "forum"), {
+        user: user.email,
+        text: text,
+        createdAt: serverTimestamp()
+    });
+
+    forumText.value = "";
+    loadForum();
+};
+
+
+async function loadForum() {
+
+    forumList.innerHTML = "";
+
+    const q = query(collection(db, "forum"), orderBy("createdAt", "desc"));
+    const snapshot = await getDocs(q);
+
+    snapshot.forEach(doc => {
+        const f = doc.data();
+        forumList.innerHTML += `
+            <div class="forum-item">
+                <strong>${f.user}</strong><br>
+                ${f.text}
+            </div>`;
+    });
+}
+
+
+
+// =============================
+// 📄 CLEARANCE (Same as yours)
+// =============================
+window.generateClearance = function () {
+
     const text = `
 BARANGAY CLEARANCE
 
@@ -90,59 +191,33 @@ Purpose: ${clearPurpose.value}
 Date Issued: ${new Date().toLocaleDateString()}
     `;
 
-    clearOutput.innerText=text;
+    clearOutput.innerText = text;
 
-    const blob=new Blob([text],{type:"text/plain"});
-    const link=document.createElement("a");
-    link.href=URL.createObjectURL(blob);
-    link.download="clearance.txt";
+    const blob = new Blob([text], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "clearance.txt";
     link.click();
-}
+};
 
-function printClearance(){
+
+window.printClearance = function () {
     window.print();
-}
+};
 
-// FORUM
-function getForum(){
-    return JSON.parse(localStorage.getItem("forum")) || [];
-}
 
-function addForum(){
-    const forum=getForum();
-
-    forum.push({
-        user:localStorage.getItem("currentUser"),
-        text:forumText.value
-    });
-
-    localStorage.setItem("forum",JSON.stringify(forum));
-    forumText.value="";
-    displayForum();
-}
-
-function displayForum(){
-    const forum=getForum();
-    forumList.innerHTML="";
-
-    forum.forEach(f=>{
-        forumList.innerHTML+=`
-            <div class="forum-item">
-                <strong>${f.user}</strong><br>
-                ${f.text}
-            </div>`;
-    });
-}
-
-// Show Clearance Form
-function showClearanceForm() {
+window.showClearanceForm = function () {
     residentSection.classList.add("hidden");
     clearanceSection.classList.remove("hidden");
-}
+};
 
-// Go back to Dashboard
-function backToDashboard() {
+
+window.backToDashboard = function () {
     clearanceSection.classList.add("hidden");
     residentSection.classList.remove("hidden");
-}
+};
 
+
+window.toggleSignup = function () {
+    signupBox.classList.toggle("hidden");
+};
