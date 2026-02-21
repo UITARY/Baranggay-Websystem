@@ -123,16 +123,24 @@ window.login = async function () {
 // Auto detect login
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        loginSection.classList.add("hidden");
-        residentSection.classList.remove("hidden");
-        loadAnnouncements();
-        loadForum();
+        const uid = user.uid;
+        const userRef = doc(db, "users", uid);
+        getDoc(userRef).then(docSnap => {
+            if (docSnap.exists()) {
+                const role = docSnap.data().role;
+                if (role === "admin") {
+                    showAdminDashboard();
+                } else {
+                    showResidentDashboard();
+                }
+            }
+        });
     } else {
         loginSection.classList.remove("hidden");
         residentSection.classList.add("hidden");
+        adminSection.classList.add("hidden");
     }
 });
-
 
 
 // =============================
@@ -272,6 +280,7 @@ function showNotification(message, type = "success") {
         notif.classList.add("hidden");
     }, 3000);
 }
+
 
 
 
