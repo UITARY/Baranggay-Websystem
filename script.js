@@ -221,3 +221,19 @@ window.backToDashboard = function () {
 window.toggleSignup = function () {
     signupBox.classList.toggle("hidden");
 };
+
+function showNotification(message, type = "success") {
+    const notif = document.getElementById("notification");
+    
+    notif.innerText = message;
+    notif.classList.remove("hidden");
+    notif.classList.remove("error");
+
+    if (type === "error") {
+        notif.classList.add("error");
+    }
+
+    setTimeout(() => {
+        notif.classList.add("hidden");
+    }, 3000);
+}
