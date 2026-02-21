@@ -191,3 +191,38 @@ textarea {
     }
 }
 
+/* NOTIFICATION */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #2e7d32;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    font-size: 14px;
+    z-index: 1000;
+    animation: slideIn 0.4s ease;
+}
+
+.notification.error {
+    background: #c62828;
+}
+
+.notification.hidden {
+    display: none;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+
