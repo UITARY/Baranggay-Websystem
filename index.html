@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Barangay Resident Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="Photos/logo.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -21,71 +21,32 @@
     <!-- LOGIN SECTION -->
     <div id="loginSection" class="auth-card">
         <h2>Welcome Resident</h2>
-        <input type="text" id="loginUser" placeholder="Username">
+        <input type="text" id="loginUser" placeholder="Email">
         <input type="password" id="loginPass" placeholder="Password">
-        <button class="primary-btn" onclick="login()">Login</button>
+        <button class="primary-btn" id="loginBtn">Login</button>
         <p class="link" onclick="toggleSignup()">No account? Register here</p>
 
         <div id="signupBox" class="hidden">
             <h3>Create Account</h3>
-            <input type="text" id="signupUser" placeholder="Username">
+            <input type="text" id="signupUser" placeholder="Email">
             <input type="password" id="signupPass" placeholder="Password">
-            <button class="primary-btn" onclick="signup()">Register</button>
+            <button class="primary-btn" id="signupBtn">Register</button>
         </div>
     </div>
 
-    <!-- DASHBOARD -->
+    <!-- RESIDENT DASHBOARD -->
     <div id="residentSection" class="hidden">
-
-        <div id="adminSection" class="hidden">
-
-    <div class="dashboard-header">
-        <h2>Admin Dashboard</h2>
-        <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
-
-    <div class="grid">
-
-        <!-- Manage Users -->
-        <div class="card full-width">
-            <h3>👥 Residents</h3>
-            <div id="adminUserList"></div>
-        </div>
-
-        <!-- Manage Announcements -->
-        <div class="card">
-            <h3>📢 Announcements</h3>
-            <input type="text" id="adminAnnTitle" placeholder="Title">
-            <input type="date" id="adminAnnDate">
-            <input type="time" id="adminAnnSchedule">
-            <button class="primary-btn" onclick="addAnnouncementAdmin()">Add</button>
-            <div id="adminAnnouncementList"></div>
-        </div>
-
-        <!-- Manage Forum -->
-        <div class="card">
-            <h3>💬 Forum Posts</h3>
-            <div id="adminForumList"></div>
-        </div>
-
-    </div>
-
-</div>
-
         <div class="dashboard-header">
             <h2>Resident Dashboard</h2>
             <button class="logout-btn" onclick="logout()">Logout</button>
         </div>
 
         <div class="grid">
-
-            <!-- Announcements -->
             <div class="card">
                 <h3>📢 Announcements</h3>
                 <div id="announcementList"></div>
             </div>
 
-            <!-- Forum -->
             <div class="card full-width">
                 <h3>💬 Community Forum</h3>
                 <textarea id="forumText" placeholder="Write your suggestion or concern..."></textarea>
@@ -93,66 +54,92 @@
                 <div id="forumList"></div>
             </div>
 
-            <!-- Button to go to Fill-up Form -->
             <div class="card">
                 <h3>📄 Barangay Clearance</h3>
                 <button class="primary-btn" onclick="showClearanceForm()">Fill-up Form</button>
             </div>
-
         </div>
     </div>
 
-    <!-- CLEARANCE FORM -->
-<div id="clearanceSection" class="paper hidden">
+    <!-- ADMIN DASHBOARD -->
+    <div id="adminSection" class="hidden">
+        <div class="dashboard-header">
+            <h2>Admin Dashboard</h2>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
 
-    <div class="paper-header">
-        <h2>Republic of the Philippines</h2>
-        <h3>Barangay 99</h3>
-        <p>City of ________</p>
-    </div>
+        <div class="grid">
+            <!-- Users -->
+            <div class="card full-width">
+                <h3>👥 Residents</h3>
+                <div id="adminUserList"></div>
+            </div>
 
-    <hr>
+            <!-- Announcements -->
+            <div class="card">
+                <h3>📢 Add Announcement</h3>
+                <input type="text" id="adminAnnTitle" placeholder="Title">
+                <input type="date" id="adminAnnDate">
+                <input type="time" id="adminAnnSchedule">
+                <button class="primary-btn" onclick="addAnnouncementAdmin()">Add</button>
+                <div id="adminAnnouncementList"></div>
+            </div>
 
-    <h2 class="paper-title">BARANGAY CLEARANCE</h2>
-
-    <div class="form-grid">
-        <input type="text" id="clearName" placeholder="Full Name">
-        <input type="number" id="clearAge" placeholder="Age">
-        <input type="text" id="clearAddress" placeholder="Complete Address">
-        <input type="text" id="clearCivil" placeholder="Civil Status">
-        <input type="text" id="clearPurpose" placeholder="Purpose of Clearance">
-    </div>
-
-    <p class="paper-text">
-        This is to certify that the above-named person is a bona fide resident 
-        of this Barangay and has no derogatory record on file as of this date.
-    </p>
-
-    <p class="paper-date">
-        Issued this <span id="issueDate"></span>
-    </p>
-
-    <div class="signature-area">
-        <div class="signature-box">
-            ___________________________<br>
-            Barangay Captain
+            <!-- Forum -->
+            <div class="card">
+                <h3>💬 Forum Posts</h3>
+                <div id="adminForumList"></div>
+            </div>
         </div>
     </div>
 
-    <div class="paper-buttons">
-        <button class="primary-btn" onclick="printClearance()">Print Clearance</button>
-        <button class="secondary-btn" onclick="backToDashboard()">Back</button>
+    <!-- BARANGAY CLEARANCE FORM -->
+    <div id="clearanceSection" class="paper hidden">
+        <div class="paper-header">
+            <h2>Republic of the Philippines</h2>
+            <h3>Barangay 99</h3>
+            <p>City of ________</p>
+        </div>
+
+        <hr>
+
+        <h2 class="paper-title">BARANGAY CLEARANCE</h2>
+
+        <div class="form-grid">
+            <input type="text" id="clearName" placeholder="Full Name">
+            <input type="number" id="clearAge" placeholder="Age">
+            <input type="text" id="clearAddress" placeholder="Complete Address">
+            <input type="text" id="clearCivil" placeholder="Civil Status">
+            <input type="text" id="clearPurpose" placeholder="Purpose of Clearance">
+        </div>
+
+        <p class="paper-text">
+            This is to certify that the above-named person is a bona fide resident 
+            of this Barangay and has no derogatory record on file as of this date.
+        </p>
+
+        <p class="paper-date">
+            Issued this <span id="issueDate"></span>
+        </p>
+
+        <div class="signature-area">
+            <div class="signature-box">
+                ___________________________<br>
+                Barangay Captain
+            </div>
+        </div>
+
+        <div class="paper-buttons">
+            <button class="primary-btn" onclick="printClearance()">Print Clearance</button>
+            <button class="secondary-btn" onclick="backToDashboard()">Back</button>
+        </div>
     </div>
 
 </div>
 
-</div>
-<script type="module" src="script.js"></script>
-
+<!-- NOTIFICATION -->
 <div id="notification" class="notification hidden"></div>
+
+<script type="module" src="script.js"></script>
 </body>
 </html>
-
-
-
-
