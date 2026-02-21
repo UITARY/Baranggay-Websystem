@@ -281,6 +281,97 @@ function showNotification(message, type = "success") {
     }, 3000);
 }
 
+// SHOW ADMIN DASHBOARD
+function showAdminDashboard() {
+    loginSection.classList.add("hidden");
+    residentSection.classList.add("hidden");
+    adminSection.classList.remove("hidden");
+    displayUsers();
+    displayAnnouncementsAdmin();
+    displayForumAdmin();
+}
+
+// USERS
+async function displayUsers() {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    const list = document.getElementById("adminUserList");
+    list.innerHTML = "";
+    querySnapshot.forEach(doc => {
+        const data = doc.data();
+        list.innerHTML += `
+            <div class="announcement-item">
+                ${data.email} - ${data.role}
+                <button onclick="deleteUser('${doc.id}')">Delete</button>
+            </div>
+        `;
+    });
+}
+
+async function deleteUser(uid) {
+    await deleteDoc(doc(db, "users", uid));
+    showNotification("User deleted");
+    displayUsers();
+}
+
+// ANNOUNCEMENTS
+async function addAnnouncementAdmin() {
+    const title = adminAnnTitle.value;
+    const date = adminAnnDate.value;
+    const schedule = adminAnnSchedule.value;
+
+    if (!title || !date || !schedule) return showNotification("Fill all fields", "error");
+
+    await addDoc(collection(db, "announcements"), { title, date, schedule });
+    showNotification("Announcement added!");
+    adminAnnTitle.value = "";
+    adminAnnDate.value = "";
+    adminAnnSchedule.value = "";
+    displayAnnouncementsAdmin();
+}
+
+async function displayAnnouncementsAdmin() {
+    const querySnapshot = await getDocs(collection(db, "announcements"));
+    const list = document.getElementById("adminAnnouncementList");
+    list.innerHTML = "";
+    querySnapshot.forEach(doc => {
+        const data = doc.data();
+        list.innerHTML += `
+            <div class="announcement-item">
+                <strong>${data.title}</strong> ${data.date} ${data.schedule}
+                <button onclick="deleteAnnouncement('${doc.id}')">Delete</button>
+            </div>
+        `;
+    });
+}
+
+async function deleteAnnouncement(id) {
+    await deleteDoc(doc(db, "announcements", id));
+    showNotification("Announcement deleted");
+    displayAnnouncementsAdmin();
+}
+
+// FORUM
+async function displayForumAdmin() {
+    const querySnapshot = await getDocs(collection(db, "forum"));
+    const list = document.getElementById("adminForumList");
+    list.innerHTML = "";
+    querySnapshot.forEach(doc => {
+        const data = doc.data();
+        list.innerHTML += `
+            <div class="forum-item">
+                <strong>${data.user}</strong>: ${data.text}
+                <button onclick="deleteForumPost('${doc.id}')">Delete</button>
+            </div>
+        `;
+    });
+}
+
+async function deleteForumPost(id) {
+    await deleteDoc(doc(db, "forum", id));
+    showNotification("Forum post deleted");
+    displayForumAdmin();
+}
+
 
 
 
