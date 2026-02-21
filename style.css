@@ -240,6 +240,7 @@ input:focus, textarea:focus {
     border: 1px solid #ccc;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
     font-family: "Times New Roman", serif;
+    min-height: 297mm;
 }
 
 .paper-header {
@@ -312,5 +313,42 @@ input:focus, textarea:focus {
     }
 }
 
+@page {
+    margin: 5mm;
+}
+
+@media print {
+
+    @page {
+        margin: 5mm;
+    }
+
+    body {
+        margin: 0;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    .paper, .paper * {
+        visibility: visible;
+    }
+
+    .paper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+        box-shadow: none;
+        border: none;
+    }
+
+    .paper-buttons {
+        display: none;
+    }
+}
 
 
