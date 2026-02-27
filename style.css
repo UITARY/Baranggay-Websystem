@@ -74,3 +74,5 @@ input:focus, textarea:focus { border-color:#f57c00; outline:none; }
 }
 
 @page { margin:5mm; }
+
+.pointer {cursor: pointer;}
